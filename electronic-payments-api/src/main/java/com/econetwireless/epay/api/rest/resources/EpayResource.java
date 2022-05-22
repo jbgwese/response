@@ -6,7 +6,6 @@ import com.econetwireless.epay.api.rest.messages.TransactionsResponse;
 import com.econetwireless.utils.messages.AirtimeBalanceResponse;
 import com.econetwireless.utils.messages.AirtimeTopupRequest;
 import com.econetwireless.utils.messages.AirtimeTopupResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,11 +15,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("resources/services")
 public class EpayResource {
-    @Autowired
+
     private EpayRequestProcessor epayRequestProcessor;
 
-    @Autowired
+
     private ReportingProcessor reportingProcessor;
+
+    public EpayResource(EpayRequestProcessor epayRequestProcessor, ReportingProcessor reportingProcessor) {
+        this.epayRequestProcessor = epayRequestProcessor;
+        this.reportingProcessor = reportingProcessor;
+    }
+
 
     @GetMapping(value = "enquiries/{partnerCode}/balances/{mobileNumber}",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
